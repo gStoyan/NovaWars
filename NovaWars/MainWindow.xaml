@@ -1,0 +1,66 @@
+﻿<Window x:Class="NovaWars.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NovaWars"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="800">
+    <Window.Background>
+        <ImageBrush ImageSource="Images/background.jpg"></ImageBrush>
+    </Window.Background>
+    
+    <Grid Margin="0,0,0,20" >
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <ListView SelectedIndex="0" Name="TerranGrid" Grid.Column="0" Margin="0,20,0,5" Width="240"   ItemsSource="{Binding Terrans}"  >
+                    <ListView.View >
+                        <GridView >
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"  Width="80"/>
+                            <GridViewColumn Header="Health" DisplayMemberBinding="{Binding Health}"  Width="50"/>
+                            <GridViewColumn Header="Attack" DisplayMemberBinding="{Binding Attack}"  Width="50"/>
+                            <GridViewColumn Header="Range" DisplayMemberBinding="{Binding Range}"  Width="50"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button Content="Shoot" Grid.Column="1" Height="23" Margin="75,40,75,0" Name="btnShoot"   
+                VerticalAlignment="Top" 
+                Command="{Binding Path=Shoot}" CommandParameter="{Binding ElementName=Target, Path=Text}" RenderTransformOrigin="0.5,0.5"  >
+                    
+                </Button>
+                <ListView SelectedIndex="3" Name="ZergGrid" Grid.Column="2" Margin="0,20,0,5" Width="240"   ItemsSource="{Binding Zergs}"  >
+                    <ListView.View >
+                        <GridView >
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"  Width="80"/>
+                            <GridViewColumn Header="Health" DisplayMemberBinding="{Binding Health}"  Width="50"/>
+                            <GridViewColumn Header="Attack" DisplayMemberBinding="{Binding Attack}"  Width="50"/>
+                            <GridViewColumn Header="Range" DisplayMemberBinding="{Binding Range}"  Width="50"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+            <StackPanel Margin="250 0 0 5">
+                <TextBlock Name="Target" Visibility="Hidden">
+                    <Run Text="{Binding ElementName=TerranGrid,Path=SelectedItem.Attack }"></Run>
+                    <Run Text="-"></Run>
+                    <Run Text="{Binding ElementName=ZergGrid,Path=SelectedItem.Name }"></Run>
+                    <Run Text="-"></Run>
+                    <Run Text="{Binding ElementName=ZergGrid,Path=SelectedItem.Health }"></Run>                       
+                    <Run Text="-"></Run>
+                    <Run Text="{Binding ElementName=ZergGrid,Path=SelectedItem.Attack }"></Run>
+                    <Run Text="-"></Run>
+                    <Run Text="{Binding ElementName=ZergGrid,Path=SelectedItem.Range }"></Run>
+                </TextBlock>
+            </StackPanel>
+            
+            <TextBox  x:Name="Console"   Text="{Binding Console}" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="400"/>
+
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,18 @@
+﻿<Application x:Class="NovaWars.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:NovaWars"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Infrastructure/Styles/Buttons.xaml" />
+                <ResourceDictionary Source="Infrastructure/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="Infrastructure/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Infrastructure/Styles/Text.xaml" />
+                <ResourceDictionary Source="Infrastructure/Styles/Window.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
