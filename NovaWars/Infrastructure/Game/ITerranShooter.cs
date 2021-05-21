@@ -6,6 +6,6 @@ namespace NovaWars.Infrastructure.Game
 {
     public interface ITerranShooter
     {
-        Dictionary<List<ITerran>, List<IZerg>> ShootTerran(List<ITerran> terrans, List<IZerg> zergs);
+       List<ITerran> ShootTerran(List<ITerran> terrans, List<IZerg> zergs);
     }
 }

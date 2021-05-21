@@ -8,9 +8,9 @@
 
   <ItemGroup>
     <None Remove="Images\background.jpg" />
-    <None Remove="SoundEffects\reload.wav" />
-    <None Remove="SoundEffects\silencer.wav" />
-    <None Remove="SoundEffects\sniper.wav" />
+    <None Remove="Infrastructure\SoundEffects\reload.wav" />
+    <None Remove="Infrastructure\SoundEffects\silencer.wav" />
+    <None Remove="Infrastructure\SoundEffects\sniper.wav" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,9 +19,9 @@
 
   <ItemGroup>
     <Resource Include="Images\background.jpg" />
-    <Resource Include="SoundEffects\reload.wav" />
-    <Resource Include="SoundEffects\silencer.wav" />
-    <Resource Include="SoundEffects\sniper.wav" />
+    <Resource Include="Infrastructure\SoundEffects\reload.wav" />
+    <Resource Include="Infrastructure\SoundEffects\silencer.wav" />
+    <Resource Include="Infrastructure\SoundEffects\sniper.wav" />
   </ItemGroup>
 
   <ItemGroup>

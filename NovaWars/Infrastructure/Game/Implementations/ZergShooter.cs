@@ -6,29 +6,33 @@ namespace NovaWars.Infrastructure.Game.Implementations
 {
     public class ZergShooter : IZergShooter
     {
-        private string name;
-        private int health;
-        private int attack;
-        private int range;
-        private ZerglingFactory zerglingFactory;
+        public string tName;
+        public int tAttack;
+        public int tRange;
+        public string zName;
+        public int zHealth;
+        public int zAttack;
+        public int zRange;
+        public ZerglingFactory zerglingFactory;
 
         public ZergShooter(string text)
         {
             this.zerglingFactory = new ZerglingFactory();
-            this.SplitString(text);
+            this.ParseParams(text);
         }
-        public IZerg CreateNewZerg() => this.zerglingFactory.CreateNew(this.name, this.health, this.attack, this.range);
+        public IZerg CreateNewZerg() => this.zerglingFactory.CreateNew(this.zName, this.zHealth, this.zAttack, this.zRange);
 
-
-        //the text that is recieved is damage-name-health-atack-range
-        public void SplitString(string text)
+        //the text that is recieved is tdamage-tname-trange-zname-zhealth-zattack-zrange
+        private void ParseParams(string text)
         {
-            var zergStats = text.Split("-");
-            this.name = zergStats[1];
-            this.health = int.Parse(zergStats[2]);
-            this.attack = int.Parse(zergStats[3]);
-            this.range = int.Parse(zergStats[4]);
-
+            var splitText = text.Split('-');
+            this.tAttack = int.Parse(splitText[0]);
+            this.tName = splitText[1];
+            this.tRange = int.Parse(splitText[2]);
+            this.zName = splitText[3];
+            this.zHealth = int.Parse(splitText[4]);
+            this.zAttack = int.Parse(splitText[5]);
+            this.zRange = int.Parse(splitText[6]);
         }
     }
 }

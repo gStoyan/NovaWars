@@ -9,7 +9,7 @@
     <Window.Background>
         <ImageBrush ImageSource="Images/background.jpg"></ImageBrush>
     </Window.Background>
-    
+
     <Grid Margin="0,0,0,20" >
         <StackPanel>
             <Grid>
@@ -19,7 +19,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <ListView SelectedIndex="0" Name="TerranGrid" Grid.Column="0" Margin="0,20,0,5" Width="240"   ItemsSource="{Binding Terrans}"  >
+                <ListView SelectedIndex="{Binding SelectedItem}" IsHitTestVisible="False" Name="TerranGrid" Grid.Column="0" Margin="13,20,14,5" Width="240"   ItemsSource="{Binding Terrans}"  >
                     <ListView.View >
                         <GridView >
                             <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"  Width="80"/>
@@ -29,10 +29,10 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Button Content="Shoot" Grid.Column="1" Height="23" Margin="75,40,75,0" Name="btnShoot"   
+                <Label Margin="105,25,130,265" Content="{Binding Turns}" Grid.Column="1" ></Label>
+                <Button Content="Shoot" Grid.Column="1" Height="23" Margin="75,70,75,0" Name="btnShoot"   
                 VerticalAlignment="Top" 
                 Command="{Binding Path=Shoot}" CommandParameter="{Binding ElementName=Target, Path=Text}" RenderTransformOrigin="0.5,0.5"  >
-                    
                 </Button>
                 <ListView SelectedIndex="3" Name="ZergGrid" Grid.Column="2" Margin="0,20,0,5" Width="240"   ItemsSource="{Binding Zergs}"  >
                     <ListView.View >
@@ -49,6 +49,10 @@
                 <TextBlock Name="Target" Visibility="Hidden">
                     <Run Text="{Binding ElementName=TerranGrid,Path=SelectedItem.Attack }"></Run>
                     <Run Text="-"></Run>
+                    <Run Text="{Binding ElementName=TerranGrid,Path=SelectedItem.Name }"></Run>
+                    <Run Text="-"></Run>
+                    <Run Text="{Binding ElementName=TerranGrid,Path=SelectedItem.Range }"></Run>
+                    <Run Text="-"></Run>
                     <Run Text="{Binding ElementName=ZergGrid,Path=SelectedItem.Name }"></Run>
                     <Run Text="-"></Run>
                     <Run Text="{Binding ElementName=ZergGrid,Path=SelectedItem.Health }"></Run>                       
@@ -58,8 +62,8 @@
                     <Run Text="{Binding ElementName=ZergGrid,Path=SelectedItem.Range }"></Run>
                 </TextBlock>
             </StackPanel>
-            
-            <TextBox  x:Name="Console"   Text="{Binding Console}" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="400"/>
+
+            <TextBox  x:Name="Console" Text="{Binding Console}" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Hidden" Height="400"/>
 
         </StackPanel>
     </Grid>

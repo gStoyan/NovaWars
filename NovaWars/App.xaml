@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="Infrastructure/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Infrastructure/Styles/Text.xaml" />
                 <ResourceDictionary Source="Infrastructure/Styles/Window.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

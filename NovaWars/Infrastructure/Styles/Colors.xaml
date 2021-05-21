@@ -16,10 +16,10 @@
     <Style TargetType="Button" x:Key="ButtonColor">
         <Style.Triggers>
             <EventTrigger RoutedEvent="PreviewMouseDown">
-                <SoundPlayerAction Source="SoundEffects/sniper.wav" />
+                <SoundPlayerAction Source="Infrastructure/SoundEffects/sniper.wav" />
             </EventTrigger>
             <EventTrigger RoutedEvent="Button.MouseEnter">
-                <SoundPlayerAction Source="SoundEffects/reload.wav" />
+                <SoundPlayerAction Source="Infrastructure/SoundEffects/reload.wav" />
             </EventTrigger>
         </Style.Triggers>
         <Setter Property="Background" Value="{StaticResource ButtonBrush}"></Setter>
