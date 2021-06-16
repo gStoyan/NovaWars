@@ -14,14 +14,15 @@
         <StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="89*"/>
+                    <ColumnDefinition Width="89*"/>
+                    <ColumnDefinition Width="26*"/>
+                    <ColumnDefinition Width="63*"/>
                 </Grid.ColumnDefinitions>
 
                 <ListView SelectedIndex="{Binding SelectedItem}" IsHitTestVisible="False" Name="TerranGrid" Grid.Column="0" Margin="13,20,14,5" Width="240"   ItemsSource="{Binding Terrans}"  >
                     <ListView.View >
-                        <GridView >
+                        <GridView>
                             <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"  Width="80"/>
                             <GridViewColumn Header="Health" DisplayMemberBinding="{Binding Health}"  Width="50"/>
                             <GridViewColumn Header="Attack" DisplayMemberBinding="{Binding Attack}"  Width="50"/>
@@ -29,12 +30,23 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Label Margin="105,25,130,265" Content="{Binding Turns}" Grid.Column="1" ></Label>
-                <Button Content="Shoot" Grid.Column="1" Height="23" Margin="75,70,75,0" Name="btnShoot"   
-                VerticalAlignment="Top" 
+                <Label Margin="117,87,117,203" Content="{Binding Turns}" Grid.Column="1" ></Label>
+                <Label  Name="Level"  Margin="119,28,116,256" Content="{Binding Level}" Grid.Column="1" RenderTransformOrigin="-0.1,0.451" >
+                    <Label.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-0.478"/>
+                            <TranslateTransform X="-0.004" Y="0.074"/>
+                        </TransformGroup>
+                    </Label.RenderTransform>
+                </Label>
+
+                <Button Content="Shoot" Grid.Column="1" Height="24" Margin="75,0,75,0" Name="btnShoot"   
+                VerticalAlignment="Center" 
                 Command="{Binding Path=Shoot}" CommandParameter="{Binding ElementName=Target, Path=Text}" RenderTransformOrigin="0.5,0.5"  >
                 </Button>
-                <ListView SelectedIndex="3" Name="ZergGrid" Grid.Column="2" Margin="0,20,0,5" Width="240"   ItemsSource="{Binding Zergs}"  >
+                <ListView SelectedIndex="0" Name="ZergGrid" Grid.Column="2" Margin="14,20,13,5" Width="240"   ItemsSource="{Binding Zergs}" Grid.ColumnSpan="2"  >
                     <ListView.View >
                         <GridView >
                             <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"  Width="80"/>
@@ -63,8 +75,9 @@
                 </TextBlock>
             </StackPanel>
 
-            <TextBox  x:Name="Console" Text="{Binding Console}" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Hidden" Height="400"/>
+            <TextBox x:Name="Console"  Text="{Binding Console}" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Hidden" Height="400"/>
 
         </StackPanel>
     </Grid>
+
 </Window>

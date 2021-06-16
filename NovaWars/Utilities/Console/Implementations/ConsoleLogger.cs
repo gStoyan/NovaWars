@@ -16,7 +16,7 @@ namespace NovaWars.Utilities.Console.Implementations
              $"> {zName} dealt {zAttack} dmg to {tName}({tHealth} remaining hp) \n ";
 
         public string ZergKilledLog(string tName, int tHealth, string zName) =>
-            $"> {zName} killed {tName}({tHealth} overkill)";
+            $"> {zName} killed {tName}({tHealth} overkill)\n";
 
         public string ZergTurnStart() =>
             $"> !\n> The zerg are attacking...\n";

@@ -1,7 +1,11 @@
 ﻿using NovaWars.Model.Terrans.Extensions;
 using NovaWars.Model.Zergs;
+using NovaWars.Utilities.Save;
+using NovaWars.Utilities.Save.Implementations;
 using NovaWars.Views;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 
 namespace NovaWars.Infrastructure.Game.Implementations
@@ -10,9 +14,11 @@ namespace NovaWars.Infrastructure.Game.Implementations
     {
         private IZergShooter zergShooter;
         private ITerranShooter terranShooter;
+        private ISaver saver;
         
         public GameplayOperator()
         {
+            this.saver = new Saver();
             this.terranShooter = new TerranShooter();
 
         }
@@ -35,9 +41,12 @@ namespace NovaWars.Infrastructure.Game.Implementations
             return this.zergShooter.CreateNewZerg();
         } 
 
-        public List<ITerran> EndRound(List<ITerran> terrans, List<IZerg> zergs)
+        public List<ITerran> EndRound(List<ITerran> terrans, List<IZerg> zergs) =>
+            this.terranShooter.ShootTerran(terrans, zergs);
+
+        public void Save(int level, ObservableCollection<ITerran> terrans)
         {
-            return this.terranShooter.ShootTerran(terrans, zergs);
+            this.saver.SaveLevel(level, terrans.ToList());
         }
     }
 }

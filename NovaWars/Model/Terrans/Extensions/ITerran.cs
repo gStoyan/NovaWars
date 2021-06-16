@@ -1,7 +1,9 @@
 ﻿
+using System.Runtime.Serialization;
+
 namespace NovaWars.Model.Terrans.Extensions
 {
-    public interface ITerran
+    public interface ITerran : ISerializable
     {
         public abstract string Name { get; set; }
 

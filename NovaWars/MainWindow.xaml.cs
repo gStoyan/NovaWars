@@ -26,7 +26,7 @@ namespace NovaWars
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new WarsViewModel();
+            this.DataContext = new WarsViewModel();            
         }
 
     }

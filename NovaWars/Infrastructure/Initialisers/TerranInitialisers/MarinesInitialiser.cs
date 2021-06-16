@@ -12,7 +12,7 @@ namespace NovaWars.Infrastructure.Initialisers.TerranInitialisers
 {
     public class MarinesInitialiser : ITerranInitialiser
     {
-        private int level1 = 2;
+        private int level1 = 5;
         private MarineFactory marineFactory;
 
         public MarinesInitialiser()

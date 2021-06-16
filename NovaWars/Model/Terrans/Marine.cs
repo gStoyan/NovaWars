@@ -1,8 +1,11 @@
 ﻿using NovaWars.Model.Terrans.Extensions;
+using System;
+using System.Runtime.Serialization;
 
 namespace NovaWars.Model.Terrans
 {
-    public class Marine : ITerran
+    [Serializable]
+    public class Marine :  ITerran 
     {
         private string name;
         private int health;
@@ -23,5 +26,10 @@ namespace NovaWars.Model.Terrans
         public int Attack { get => attack; set { attack = value; } }
 
         public int Range { get => range; set { range = value; } }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
