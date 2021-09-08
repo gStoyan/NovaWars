@@ -12,21 +12,21 @@
 
     <StackPanel>
         <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <ListView  Name="TerranGrid" SelectedIndex="0"  Margin="0,20,0,100" Width="240"   ItemsSource="{Binding Terrans}"  >
-            <ListView.View >
-                <GridView >
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"  Width="80"/>
-                    <GridViewColumn Header="Health" DisplayMemberBinding="{Binding Health}"  Width="50"/>
-                    <GridViewColumn Header="Attack" DisplayMemberBinding="{Binding Attack}"  Width="50"/>
-                    <GridViewColumn Header="Range" DisplayMemberBinding="{Binding Range}"  Width="50"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-            <ListView  Name="RecruitsGrid" SelectedIndex="0"  Margin="0,20,0,100" Width="240"   ItemsSource="{Binding Recruits}"  >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ListView  Name="SurvivingGrid" SelectedIndex="0" IsEnabled="True"  Margin="0,20,0,100" Width="240"   ItemsSource="{Binding Terrans}"  >
+                <ListView.View >
+                    <GridView >
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"  Width="80"/>
+                        <GridViewColumn Header="Health" DisplayMemberBinding="{Binding Health}"  Width="50"/>
+                        <GridViewColumn Header="Attack" DisplayMemberBinding="{Binding Attack}"  Width="50"/>
+                        <GridViewColumn Header="Range" DisplayMemberBinding="{Binding Range}"  Width="50"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView  Name="RecruitsGrid" SelectedIndex="0"  Margin="43,20,42,100" Width="240"   ItemsSource="{Binding Recruits}" Grid.Column="1"  >
                 <ListView.View >
                     <GridView >
                         <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"  Width="80"/>
@@ -37,11 +37,21 @@
                 </ListView.View>
             </ListView>
         </Grid>
-        <Button Style="{StaticResource BaseStyle}" Content="Next"  Height="23" Margin="75,70,75,0" Name="btnNext"   
+        <Button Style="{StaticResource BaseStyle}" Content="Upgrade"  Height="23" Margin="75,70,75,0" Name="btnUpgrade"   
                 VerticalAlignment="Top" 
-                Command="{Binding Path=Next}"  RenderTransformOrigin="0.5,0.5"  >
+                Command="{Binding Path=Upgrade}" CommandParameter="{Binding ElementName=Unit, Path=Text}"  RenderTransformOrigin="0.5,0.5"  >
         </Button>
         <TextBox x:Name="Console"  Text="{Binding Console}" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Hidden" Height="400"/>
-       
+        <StackPanel Margin="250 0 0 5">
+            <TextBlock Name="Unit" Visibility="Hidden">
+                    <Run Text="{Binding ElementName=SurvivingGrid,Path=SelectedItem.Name }"></Run>
+                    <Run Text="-"></Run>
+                    <Run Text="{Binding ElementName=SurvivingGrid,Path=SelectedItem.Health }"></Run>
+                    <Run Text="-"></Run>
+                    <Run Text="{Binding ElementName=SurvivingGrid,Path=SelectedItem.Attack }"></Run>
+                    <Run Text="-"></Run>
+            </TextBlock>
+        </StackPanel>
     </StackPanel>
+    
 </Window>

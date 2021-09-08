@@ -8,7 +8,7 @@ namespace NovaWars.Infrastructure.Levels.ZergInitialisers
 {
     public class HydrasInitialiser : IZergInitialiser
     {
-        private int level1 = 0;
+        private int level1 = 2;
 
         private HydraFactory hydraFactory;
 

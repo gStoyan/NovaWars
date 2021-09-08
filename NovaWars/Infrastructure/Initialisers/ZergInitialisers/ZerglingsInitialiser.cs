@@ -8,7 +8,7 @@ namespace NovaWars.Infrastructure.Levels.ZergInitialisers
 {
     public class ZerglingsInitialiser : IZergInitialiser
     {
-        private int level1 = 1;
+        private int level1 = 2;
 
         private ZerglingFactory zerglingFactory;
 

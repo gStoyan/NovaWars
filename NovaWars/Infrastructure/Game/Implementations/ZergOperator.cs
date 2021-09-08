@@ -4,7 +4,7 @@ using NovaWars.Model.Zergs;
 
 namespace NovaWars.Infrastructure.Game.Implementations
 {
-    public class ZergShooter : IZergShooter
+    public class ZergOperator : IZergOperator
     {
         public string tName;
         public int tAttack;
@@ -15,7 +15,7 @@ namespace NovaWars.Infrastructure.Game.Implementations
         public int zRange;
         public ZerglingFactory zerglingFactory;
 
-        public ZergShooter(string text)
+        public ZergOperator(string text)
         {
             this.zerglingFactory = new ZerglingFactory();
             this.ParseParams(text);

@@ -62,39 +62,22 @@ namespace NovaWars.ViewModel
         //Shoot button that takes the demage and the selected Zerg from the parameter
         private void ShootExecute(object parameter)
         {
-            var tAttack = int.Parse(parameter.ToString().Split('-')[0]);
-            var tName = parameter.ToString().Split('-')[1];
-            var newZerg = gameplayOperator.ShootZerg(parameter.ToString());
-            this.SwitchOldAndNewZerg(newZerg,tAttack);
-            if (newZerg.Health < 0)
-            {
-                newZerg.Health = 0;
-            }
-            this.Console = this.consoleLogger.ShootLog(tName, tAttack, newZerg.Name, newZerg.Health) + this.Console;
+            var result = gameplayOperator.CreateShotZergAndLog(parameter,this.Zergs.ToList());
+
+            this.Zergs = new ObservableCollection<IZerg>(result.Item1);
+
+            this.Console = result.Item2 + this.Console;
             this.Console = this.consoleLogger.TurnLog(this.Turns) + this.Console;
             this.SelectedItem++;
 
             gameplayOperator.CheckGameOver(this.Terrans.Count, this.Zergs.Count);
-            gameplayOperator.Save(this.Level, this.Terrans);
+            //gameplayOperator.Save(this.Level, this.Terrans);
             EndTurn();
         }
 
         private bool CanShootExecute(object parameter) =>
             CommandHelper.CheckParameter(parameter);
 
-        
-        private void SwitchOldAndNewZerg(IZerg newZerg, int dmg)//It deals the given damage to a new zerg unit and switches it with a old zerg unit that used to be equal to it
-        {
-            var oldZerg = this.Zergs.Where(z => z.Health == newZerg.Health).FirstOrDefault();
-            newZerg.Health -= dmg;
-            this.Zergs.Remove(oldZerg);
-            if (newZerg.Health > 0)
-            {
-                this.Zergs.Insert(0, newZerg);
-            }
-        }
-
-        
         private void EndTurn() // trigger zerg turn and reset turns to the count of terran units
         {
             this.Turns--;
@@ -108,8 +91,8 @@ namespace NovaWars.ViewModel
         
         private async void ZergTurn() //Zerg Deals Demage at the end of the turn(It doesnt check the range)
         {
-            
-            this.Console += consoleLogger.ZergTurnStart();
+
+            this.Console += Constants.ZergTurnStarts;
             var terrans = new List<ITerran>(this.Terrans);
             var zergs = new List<IZerg>(this.Zergs);
             foreach (var zerg in zergs)

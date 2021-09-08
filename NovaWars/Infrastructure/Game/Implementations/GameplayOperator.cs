@@ -1,8 +1,11 @@
-﻿using NovaWars.Model.Terrans.Extensions;
+﻿using NovaWars.Infrastructure.Game.Save;
+using NovaWars.Infrastructure.Game.Save.Implementations;
+using NovaWars.Model.Terrans.Extensions;
 using NovaWars.Model.Zergs;
-using NovaWars.Utilities.Save;
-using NovaWars.Utilities.Save.Implementations;
+using NovaWars.Utilities.Console;
+using NovaWars.Utilities.Console.Implementations;
 using NovaWars.Views;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,14 +15,16 @@ namespace NovaWars.Infrastructure.Game.Implementations
 {
     public class GameplayOperator : IGameplayOperator
     {
-        private IZergShooter zergShooter;
-        private ITerranShooter terranShooter;
+        private IZergOperator zergOperator;
+        private ITerranOperator terranShooter;
         private ISaver saver;
+        private IConsoleLogger consoleLogger;
         
         public GameplayOperator()
         {
             this.saver = new Saver();
-            this.terranShooter = new TerranShooter();
+            this.terranShooter = new TerranOperator();
+            this.consoleLogger = new ConsoleLogger();
 
         }
         public void CheckGameOver(int terranCount, int zergCount)
@@ -35,10 +40,23 @@ namespace NovaWars.Infrastructure.Game.Implementations
             }
         }
 
-        public IZerg ShootZerg(string param) 
+        public Tuple<List<IZerg>,string> CreateShotZerg(object param, List<IZerg> zergs) 
         {
-            this.zergShooter = new ZergShooter(param);
-            return this.zergShooter.CreateNewZerg();
+            var tAttack = int.Parse(param.ToString().Split('-')[0]);
+            var tName = param.ToString().Split('-')[1];
+            this.zergOperator = new ZergOperator(param.ToString());
+            var newZerg = this.zergOperator.CreateNewZerg();
+
+            var oldZerg = zergs.Where(z => z.Health == newZerg.Health).FirstOrDefault();
+            newZerg.Health -= tAttack;
+            zergs.Remove(oldZerg);
+            if (newZerg.Health > 0)
+            {
+                zergs.Insert(0, newZerg);
+            }
+            var consoleLog = this.consoleLogger.ShootLog(tName, tAttack, newZerg.Name, newZerg.Health);
+
+            return Tuple.Create(zergs, consoleLog);
         } 
 
         public List<ITerran> EndRound(List<ITerran> terrans, List<IZerg> zergs) =>
@@ -48,5 +66,6 @@ namespace NovaWars.Infrastructure.Game.Implementations
         {
             this.saver.SaveLevel(level, terrans.ToList());
         }
+
     }
 }

@@ -4,10 +4,8 @@ using System.Collections.Generic;
 
 namespace NovaWars.Infrastructure.Game
 {
-    public interface IZergShooter
+    public interface IZergOperator
     {
-
         IZerg CreateNewZerg();
-
     }
 }

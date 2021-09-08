@@ -11,6 +11,6 @@ namespace NovaWars.Utilities.Console
 
         string ZergKilledLog(string tName, int tHealth, string zName);
 
-        string ZergTurnStart();
+        string UpgradeTerranUnitLog(string Name);
     }
 }
