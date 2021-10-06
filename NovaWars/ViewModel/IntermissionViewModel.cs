@@ -8,6 +8,7 @@ using NovaWars.Utilities;
 using NovaWars.Utilities.Console;
 using NovaWars.Utilities.Console.Implementations;
 using NovaWars.ViewModel.Base;
+using NovaWars.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -27,14 +28,12 @@ namespace NovaWars.ViewModel
             this.saver = new Saver();
 
 
-            var list = this.saver.ReadSavedFile();
+            var list = this.saver.ReadTerranSavedFile();
             this.Terrans = new ObservableCollection<Terran>(list);
-            if (Application.Current.Windows.OfType<MainWindow>().Any())
-            {
-                Application.Current.Windows.OfType<MainWindow>().First().Close();
-            }
         }
-        private RelayCommand<object> myCommand;
+        private RelayCommand<object> upgrade;
+
+        private RelayCommand<object> nextMission;
 
         public string Console { get; set; }
 
@@ -46,11 +45,11 @@ namespace NovaWars.ViewModel
         {
             get
             {
-                if (myCommand == null)
+                if (upgrade == null)
                 {
-                    myCommand = new RelayCommand<object>(UpgradeExecute, CanUpgradeExecute);
+                    upgrade = new RelayCommand<object>(UpgradeExecute, CanUpgradeExecute);
                 }
-                return myCommand;
+                return upgrade;
             }
         }
 
@@ -59,7 +58,34 @@ namespace NovaWars.ViewModel
             AddUpgradedUnit(parameter.ToString());
 
         }
-        private bool CanUpgradeExecute(object parameter) => true;
+        private bool CanUpgradeExecute(object parameter) =>
+            CommandHelper.CheckParameterForNull(parameter);
+        public ICommand NextMission
+        {
+            get
+            {
+                if (nextMission == null)
+                {
+                    nextMission = new RelayCommand<object>(NextMissionExecute, CanNextMissionExecute);
+                }
+                return nextMission;
+            }
+        }
+
+        private void NextMissionExecute(object parameter)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            if (Application.Current.Windows.OfType<MainWindow>().Any())
+            {
+                Application.Current.Windows.OfType<MainWindow>().First().Close();
+            }
+            if (Application.Current.Windows.OfType<IntermissionWindow>().Any())
+            {
+                Application.Current.Windows.OfType<IntermissionWindow>().First().Close();
+            }
+        }
+        private bool CanNextMissionExecute(object parameter) => true;
 
         private void AddUpgradedUnit(string param)
         {

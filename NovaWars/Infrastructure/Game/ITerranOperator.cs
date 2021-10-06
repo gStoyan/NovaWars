@@ -7,9 +7,6 @@ namespace NovaWars.Infrastructure.Game
 {
     public interface ITerranOperator
     {
-        List<ITerran> ShootTerran(List<ITerran> terrans, List<IZerg> zergs);
-
-        Terran UpgradeUnit(Terran unit);
-        
+        Terran UpgradeUnit(Terran unit);        
     }
 }

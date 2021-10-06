@@ -13,9 +13,9 @@ namespace NovaWars.Infrastructure.Game
 
         void Save(int level, ObservableCollection<ITerran> terrans);
 
-        Tuple<List<IZerg>,string> CreateShotZerg(object param, List<IZerg> zergs);
+        Tuple<List<IZerg>,string> CreateShotZergAndLog(object param, List<IZerg> zergs);
 
-        List<ITerran> EndRound(List<ITerran> terrans, List<IZerg> zergs);
+        Tuple<List<ITerran>, List<string>> ZergTurn(List<ITerran> terrans, List<IZerg> zergs);
 
     }
 }

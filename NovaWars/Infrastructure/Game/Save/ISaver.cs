@@ -9,6 +9,8 @@ namespace NovaWars.Infrastructure.Game.Save
     {
         public void SaveLevel(int level, List<ITerran> terran);
 
-        public List<Terran> ReadSavedFile();
+        public List<Terran> ReadTerranSavedFile();
+
+        public int ReadLevelSavedFile();
     }
 }

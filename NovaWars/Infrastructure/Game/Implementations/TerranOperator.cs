@@ -15,22 +15,6 @@ namespace NovaWars.Infrastructure.Game.Implementations
         //TODO: Implement Range
         private TerranFactory terranFactory;
 
-        public List<ITerran> ShootTerran(List<ITerran> terrans, List<IZerg> zergs)
-        {
-            foreach (var zerg in zergs)
-            {
-                Thread.Sleep(250);
-                Random rnd = new Random();
-                int r = rnd.Next(terrans.Count);
-                terrans[r].Health -= zerg.Attack;
-                if (terrans[r].Health <=0)
-                {
-                    terrans.RemoveAt(r);
-                }
-            }
-            return terrans;
-        }
-
         public Terran UpgradeUnit(Terran unit)
         {
             unit.Attack += 5;

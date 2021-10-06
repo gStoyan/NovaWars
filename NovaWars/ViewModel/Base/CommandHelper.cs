@@ -20,5 +20,8 @@ namespace NovaWars.ViewModel.Base
             }
             return true;
         }
+
+        public static bool CheckParameterForNull(object parameter)
+            => parameter != null;
     }
 }

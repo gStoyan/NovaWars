@@ -15,12 +15,15 @@ namespace NovaWars.Infrastructure.Game.Implementations
         public int zRange;
         public ZerglingFactory zerglingFactory;
 
-        public ZergOperator(string text)
+        public ZergOperator()
         {
             this.zerglingFactory = new ZerglingFactory();
-            this.ParseParams(text);
         }
-        public IZerg CreateNewZerg() => this.zerglingFactory.CreateNew(this.zName, this.zHealth, this.zAttack, this.zRange);
+        public IZerg CreateNewZerg(string stats)
+        {
+            this.ParseParams(stats);
+            return this.zerglingFactory.CreateNew(this.zName, this.zHealth, this.zAttack, this.zRange);
+        }
 
         //the text that is recieved is tdamage-tname-trange-zname-zhealth-zattack-zrange
         private void ParseParams(string text)

@@ -1,6 +1,7 @@
-﻿
-using NovaWars.Infrastructure.Game;
+﻿using NovaWars.Infrastructure.Game;
 using NovaWars.Infrastructure.Game.Implementations;
+using NovaWars.Infrastructure.Game.Save;
+using NovaWars.Infrastructure.Game.Save.Implementations;
 using NovaWars.Infrastructure.Levels;
 using NovaWars.Model.Terrans.Extensions;
 using NovaWars.Model.Zergs;
@@ -20,6 +21,10 @@ namespace NovaWars.ViewModel
     public class WarsViewModel : BaseViewModel
     {
         public ICommand UpdateCommand { get; set; }
+
+        private IZergOperator zergOperator;
+        private ITerranOperator terranOperator;
+        private ISaver saver;
         private RelayCommand<object> myCommand;
         private Initialiser initialiser;
         private IGameplayOperator gameplayOperator;
@@ -29,11 +34,14 @@ namespace NovaWars.ViewModel
 
         public WarsViewModel()
         {
-            this.gameplayOperator = new GameplayOperator();
+            this.zergOperator = new ZergOperator();
+            this.terranOperator = new TerranOperator();
+            this.saver = new Saver();
             this.consoleLogger = new ConsoleLogger();
+            this.gameplayOperator = new GameplayOperator(zergOperator,terranOperator,saver,consoleLogger);
             this.initialiser = new Initialiser();
             this.zergs = new ObservableCollection<IZerg>(this.initialiser.InitialiseLevel(this.Level).Values.First());
-            this.terrans = new ObservableCollection<ITerran>(this.initialiser.InitialiseLevel(this.Level).Keys.First().OrderByDescending(t => t.Attack));
+            this.terrans = new ObservableCollection<ITerran>(this.saver.ReadTerranSavedFile());
             this.Turns = this.Terrans.Count;
             this.SelectedItem = 0;
         }
@@ -62,8 +70,8 @@ namespace NovaWars.ViewModel
         //Shoot button that takes the demage and the selected Zerg from the parameter
         private void ShootExecute(object parameter)
         {
+            this.saver.SaveLevel(this.Level, this.Terrans.ToList());
             var result = gameplayOperator.CreateShotZergAndLog(parameter,this.Zergs.ToList());
-
             this.Zergs = new ObservableCollection<IZerg>(result.Item1);
 
             this.Console = result.Item2 + this.Console;
@@ -83,35 +91,28 @@ namespace NovaWars.ViewModel
             this.Turns--;
             if (this.Turns <= 0)
             {
-                ZergTurn();
+                StartZergTurn();
                 this.Turns = this.Terrans.Count;
                 this.SelectedItem = 0;
             }
         }
         
-        private async void ZergTurn() //Zerg Deals Demage at the end of the turn(It doesnt check the range)
+        private async void StartZergTurn() //Zerg Deals Demage at the end of the turn(It doesnt check the range)
         {
 
-            this.Console += Constants.ZergTurnStarts;
+            this.Console = Constants.ZergTurnStarts + this.Console;
             var terrans = new List<ITerran>(this.Terrans);
             var zergs = new List<IZerg>(this.Zergs);
-            foreach (var zerg in zergs)
+            var result = this.gameplayOperator.ZergTurn(terrans, zergs);
+            
+            this.Terrans = new ObservableCollection<ITerran>(result.Item1);
+            foreach(var log in result.Item2)
             {
                 await Task.Delay(100);
-                Random rnd = new Random();
-                int r = rnd.Next(terrans.Count);
-                terrans[r].Health -= zerg.Attack;
-                if (terrans[r].Health <= 0)
-                {
-                    this.Console = consoleLogger.ZergKilledLog(terrans[r].Name, terrans[r].Health, zerg.Name) + this.Console;
-                    terrans.RemoveAt(r);
-                    this.Terrans = new ObservableCollection<ITerran>(terrans);
-                    continue;
-                }
-                this.Terrans = new ObservableCollection<ITerran>(terrans);
-                this.Console = consoleLogger.ZergAttackLog(terrans[r].Name, terrans[r].Health, zerg.Name, zerg.Attack) + this.Console;
-                this.Turns = this.Terrans.Count();
+                this.Console = log + this.Console;
             }
+            this.Turns = this.Terrans.Count();
         }
     }
 }
+

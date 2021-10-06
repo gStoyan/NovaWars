@@ -6,6 +6,6 @@ namespace NovaWars.Infrastructure.Game
 {
     public interface IZergOperator
     {
-        IZerg CreateNewZerg();
+        IZerg CreateNewZerg(string stats);
     }
 }
