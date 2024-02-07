@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace NovaWars.Infrastructure.Game
 {
-    public interface ITerranOperator
+    public interface ITerranOperatorsdsad
     {
         Terran UpgradeUnit(Terran unit);        
     }

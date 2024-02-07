@@ -2,38 +2,8 @@
 <ArrayOfTerran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Terran>
     <Name>Nova</Name>
-    <Health>234</Health>
+    <Health>19</Health>
     <Attack>25</Attack>
     <Range>9</Range>
-  </Terran>
-  <Terran>
-    <Name>Marine</Name>
-    <Health>6</Health>
-    <Attack>2</Attack>
-    <Range>3</Range>
-  </Terran>
-  <Terran>
-    <Name>Marine</Name>
-    <Health>17</Health>
-    <Attack>2</Attack>
-    <Range>3</Range>
-  </Terran>
-  <Terran>
-    <Name>Marine</Name>
-    <Health>12</Health>
-    <Attack>2</Attack>
-    <Range>3</Range>
-  </Terran>
-  <Terran>
-    <Name>Marine</Name>
-    <Health>9</Health>
-    <Attack>2</Attack>
-    <Range>3</Range>
-  </Terran>
-  <Terran>
-    <Name>Marine</Name>
-    <Health>17</Health>
-    <Attack>2</Attack>
-    <Range>3</Range>
   </Terran>
 </ArrayOfTerran>
